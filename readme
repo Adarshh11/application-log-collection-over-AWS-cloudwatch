@@ -1,0 +1,17 @@
+following step send Apache Web Server's Access logs and Error logs to cloudwatch logs 
+
+Install and configure cloudwatch agent on EC2 Instance , Ubuntu [latest version]
+
+Provided role with necessary permission to EC2 instance in order to sent the logs to cloudwatch.
+
+Cloudwatch log group will be created automaticall along with two log streams for apache's access log and error log respectively. 
+
+Steps to install and configure cloudwatch agent 
+
+1. wget https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb
+2. sudo dpkg -i -E ./amazon-cloudwatch-agent.deb
+3. sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
+4. sudo apt-get update -y
+5. sudo apt-get install collectd
+6. sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json -s
+7. sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a status
